@@ -15,8 +15,8 @@ class GlobalStateController extends GetxController {
   MainState state = MainState();
   //改变底部导航栏索引
   changeBottomBarIndex(int index) {
-    state.bottombar_index.value = index;
     print(state.bottombar_index.value);
+    state.bottombar_index.value = index;
   }
 }
 
@@ -25,11 +25,13 @@ class BootomNavPage extends StatelessWidget {
   final globalStateController = Get.put(GlobalStateController());
   var mainState = Get.find<GlobalStateController>().state;
 
-  List bodyPageList = [
+  List bodyPageList =const [
     ProfilePage(),
     SignUpPage(),
     SplashPage(),
   ];
+
+  BootomNavPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class BootomNavPage extends StatelessWidget {
               iconSize: 30.0,
               fixedColor: Colors.red,
               type: BottomNavigationBarType.fixed,
-              items: [
+              items: const [
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.category), label: "分类"),

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:shortvideo/routes/pages.dart';
 import 'package:shortvideo/core/theme/theme.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'core/store/app_binding.dart';
 import 'core/utils/dependency_injection.dart';
 import 'core/utils/gloab_config.dart';
 
@@ -21,11 +22,14 @@ void main() async {
   runApp(GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
+      initialBinding: AppBindings(),
+      locale: const Locale("zh-CN"),
       builder: (context, child) => Scaffold(
             // Global GestureDetector that will dismiss the keyboard
             body: GestureDetector(
               onTap: () {
                 hideKeyboard(context);
+
               },
               child: child,
             ),
@@ -33,6 +37,7 @@ void main() async {
       theme: appThemeData,
       defaultTransition: Transition.fade,
       getPages: AppPages.pages,
+
       // initialBinding: SplashBinding(),
       home: const Home()));
 }

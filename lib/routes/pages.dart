@@ -15,11 +15,15 @@
  * @FilePath: /todo/lib/routes/app_pages.dart
  */
 import 'package:get/get.dart';
+import 'package:shortvideo/core/middleware/auth_middleware.dart';
+import 'package:shortvideo/core/store/app_binding.dart';
 import 'package:shortvideo/modules/login/login_page.dart';
 import 'package:shortvideo/modules/profile/page.dart';
 import 'package:shortvideo/modules/signup/page.dart';
 import 'package:shortvideo/modules/splash/page.dart';
 import 'package:shortvideo/modules/nav/page.dart';
+
+import '../modules/login/login_binding.dart';
 part 'routes.dart';
 
 abstract class AppPages {
@@ -27,7 +31,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.LOGIN,
       page: () => const LoginPage(),
-      // binding: LoginPageBinding(),
+      binding: LoginPageBinding(),
     ),
     GetPage(
       name: Routes.SPLASH,
@@ -42,10 +46,12 @@ abstract class AppPages {
     GetPage(
       name: Routes.PROFILE,
       page: () => const ProfilePage(),
+      middlewares: [AuthMiddleware()]
     ),
     GetPage(
       name: Routes.BOTTOM_NAV,
       page: () => BootomNavPage(),
+      binding: AppBindings()
     ),
   ];
 }

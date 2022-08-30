@@ -13,3 +13,16 @@
 //     );
 //   }
 // }
+
+
+import 'package:get/get.dart';
+import 'package:shortvideo/data/http/http.dart';
+import 'package:shortvideo/modules/login/login_controller.dart';
+
+class LoginPageBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => LoginController());
+    Get.lazyPut(() => AuthApi());
+  }
+}

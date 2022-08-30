@@ -48,3 +48,49 @@
 //     }
 //   }
 // }
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shortvideo/core/store/app_controller.dart';
+import 'package:shortvideo/data/db/share.dart';
+import 'package:shortvideo/routes/pages.dart';
+
+import '../../data/http/http.dart';
+
+class LoginController extends GetxController with StateMixin<dynamic> {
+  var formKey = GlobalKey<FormState>();
+  var authApi = Get.find<AuthApi>();
+  var appLogic = Get.find<AppController>();
+
+  var username = ''.obs;
+  var password = ''.obs;
+
+  String? usernameValidator(String? str) {
+    if (str == null || str.isEmpty) {
+      return "账号不能为空";
+    }
+    // GetUtils.isEmail(str);
+    // GetUtils.isPhoneNumber(str);
+    return null;
+  }
+
+  String? passwordValidator(String? str) {
+    if (str == null || str.isEmpty) {
+      return "密码不能为空";
+    }
+    return null;
+  }
+
+  login() async {
+    if (formKey.currentState!.validate()) {
+      final Response res = await authApi.login(username.value, password.value);
+      if (!res.hasError) {
+        ShareStorage.setToken(res.body['token']);
+        appLogic.login(res.body);
+        Get.back();
+      } else {
+        Get.snackbar("登陆失败", "${res.statusText}").show();
+      }
+    }
+  }
+}
